@@ -1,0 +1,106 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="WebApp.Master.cs" Inherits="MyWebApp.Site1" %>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head runat="server" >
+  <meta http-equiv="X-UA-Compatible" content="ie-edge" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>QBPOS - Khojandi Supermarket</title>
+
+    <!-- Manifest-->
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="icon" href="/source/favicon.ico" />
+
+
+  <!-- Bootstrap core CSS -->
+  <link href="~/lib/css/bootstrap.min.css" rel="stylesheet">
+  <link href="~/lib/css/bootstrap.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="~/lib/css/simple-sidebar.css" rel="stylesheet">
+  <link href="~/lib/css/site.css" rel="stylesheet">
+   <asp:ContentPlaceHolder ID="Head" runat="server">
+                </asp:ContentPlaceHolder>
+
+</head>
+
+<body>
+    <form id="form1" runat="server" style="background-color:#343a40;" defaultbutton="" >
+
+    <div class="d-flex" id="wrapper">
+
+        <!-- Sidebar -->
+        <div class="bg-light border-right" id="sidebar-wrapper">
+
+            <div class="sidebar-heading  d-inline-block"> <p style="font-size:14px;"> <img src="source/logo.png" style="width:36px; height:36px"/>Khojandi Supermarket</p></div>
+            <div class="list-group list-group-flush">
+                <a href="default.aspx" class="list-group-item list-group-item-action bg-light">Search</a>
+                <a href="MysqlData.aspx" class="list-group-item list-group-item-action bg-light">Database</a>
+                <a href="Reports.aspx" class="list-group-item list-group-item-action bg-light">Accountant Reports</a>
+                <a href="AlterData.aspx" class="list-group-item list-group-item-action bg-light">Edit Items</a>
+                <a  class="list-group-item list-group-item-action bg-light">Privacy</a>
+            </div>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+
+            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+                <button class="btn btn-primary" id="menu-toggle" style="margin-left: 10px;">Toggle Menu</button>
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent" style="padding-left:10px;">
+                    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Link</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Dropdown
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <div class="container-fluid d-flex justify-content-center"">
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+    <!-- Bootstrap core JavaScript -->
+    <script src="lib/jquery/dist/jquery.min.js"></script>
+    <script src="lib/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Menu Toggle Script -->
+    <script>
+        $("#menu-toggle").click(function (e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
+    </script>
+    </form>
+</body>
+
+</html>
+

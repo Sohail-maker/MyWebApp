@@ -1,0 +1,1 @@
+powershell.exe -noprofile -executionpolicy bypass -file C:\WebSite\start.ps1
