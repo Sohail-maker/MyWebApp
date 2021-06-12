@@ -18,6 +18,11 @@ namespace MyWebApp
             string datefrm = new DateTime(today.Year, today.Month,1).ToString("yyyy-MM-dd");
             string dateto = new DateTime(today.Year, today.Month, today.Day).ToString("yyyy-MM-dd");
 
+            if (Session["user"] == null)
+            {
+                Response.Redirect("Default.aspx");
+            }
+
         }
         
 

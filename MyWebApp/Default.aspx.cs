@@ -37,11 +37,16 @@ namespace MyWebApp
         protected void Page_Load(object sender, EventArgs e)
         {
             
-            DateTime lstupdate = Convert.ToDateTime(lastupdateDate());
-            
-            if ((DateTime.Now - lstupdate).TotalMinutes > 30)
+          //  DateTime lstupdate = Convert.ToDateTime(lastupdateDate());
+          //  
+          //  if ((DateTime.Now - lstupdate).TotalMinutes > 30)
+          //  {
+          //      btnUpdateData_Click(btnUpdateData, EventArgs.Empty);
+          //  }
+
+            if(Session["user"] == null)
             {
-                btnUpdateData_Click(btnUpdateData, EventArgs.Empty);
+                lblCost.Visible = false;
             }
         }
 
@@ -98,7 +103,8 @@ namespace MyWebApp
                     catch (NullReferenceException)
                     {
                     string query = $"SELECT `itemNumber`, `Name`, `ALU`, `attribute`, `cost`, `lastReceived`, `onHandQty`, `orderCost`, `price`, `size`, `UPC`, `ALU2`, `UPC2`, `ALU3`, `UPC3`, `ALU4`, `UPC4`, `ALU5`, `UPC5` FROM `inventory` WHERE CONCAT( `itemNumber`, `Name`, `ALU`,  `UPC`, `ALU2`, `UPC2`, `ALU3`, `UPC3`, `ALU4`, `UPC4`, `ALU5`, `UPC5` ) LIKE '%{txtUPC.Text.Trim()}%' LIMIT 1; ";
-                    MySqlConnection conn = new MySqlConnection();
+                    MySqlConnection conn = new MySqlConnection(database.connString);
+                    conn.Open();
                     MySqlCommand command = new MySqlCommand(query, conn);
                     MySqlDataReader read = command.ExecuteReader();
                     

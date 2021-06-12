@@ -32,7 +32,7 @@
 </head>
 
 <body>
-    <form id="form1" runat="server" style="background-color:#343a40;"  >
+    <form id="form1" runat="server" style="background-color:#343a40;" defaultbutton="btnLogin"  >
 
     <div class="d-flex" id="wrapper">
 
@@ -56,24 +56,27 @@
                 <button class="btn btn-primary" id="menu-toggle" style="margin-left: 10px;">Toggle Menu</button>
 
                 <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#1b6ec2" class="bi bi-person-fill" viewBox="0 0 16 16">
+  <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+</svg>
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent" style="padding-left:10px;">
-
+                    <div class="form-group" id="divLogin" runat="server">
                     <ul class="navbar-nav ml-auto mt-2 mt-lg-0" >
-                        <li class="nav-item form-group" >
-                           <input id="inputUser" type="text" runat="server" class="form-control" style="height:38px;"/>
-                                 <label for="inputUser" class="">Enter Username</label>
+                        <li class="nav-item " >
+                           <input id="inputUser" type="text" runat="server" class="form-control" style="height:38px;" placeholder="Enter Username"/>
                         </li>
-                        <li class="nav-item form-group" >
-                            <input id="inputPass" type="password" runat="server" class="form-control" style="height:38px;"/>
-                                 <label for="inputPass" class="">Enter Password</label>
+                        <li class="nav-item " >
+                            <input id="inputPass" type="password" runat="server" class="form-control" style="height:38px;" placeholder="Enter Password"/>
                         </li>
-                        <li class="nav-item form-group" style="height:38px;">
+                        <li class="nav-item " style="height:38px;">
                             <asp:Button ID="btnLogin" CssClass="btn btn-primary" runat="server" Text="Login" OnClick="btnLogin_Click" />
                         </li>
+                        
                     </ul>
+                        </div>
+                    <asp:Label Font-Size="16" ID="lblusername" runat="server" Text=""></asp:Label>
                 </div>
             </nav>
 
