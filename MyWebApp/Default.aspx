@@ -112,7 +112,7 @@
           </div>
 
       <asp:Label ID="lblError" runat="server" style="width:350px; text-align:center; display:inline-block; color:red;" Font-Bold="true"></asp:Label>
-          <asp:Button ID="btnUpdateData" runat="server" Text="Update Data" OnClick="btnUpdateData_Click" />
+          <asp:Button ID="btnUpdateData" runat="server" Text="Update Data" OnClick="btnUpdateData_Click" Visible="false"/>
 
           <div runat="server" id="printDiv" Visible="false" class="row">
               <div style="width:70%" >
