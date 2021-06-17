@@ -174,9 +174,10 @@ namespace MyWebApp
             }
             
             reportView.Visible = true;
-            reportView.DataSource = table;
+            DataView dv = table.DefaultView;
+            if (selectReport.Value == "MiscellaneousAR") dv.Sort = "Date DESC";
+            reportView.DataSource = dv;
             reportView.DataBind();
-            reportView.Sort("Date",System.Web.UI.WebControls.SortDirection.Ascending);
         }
     }
 }

@@ -135,7 +135,7 @@ namespace MyWebApp
                                     lblAttribute.Text = database.TryGetElementValue(element2, "Attribute");
                                     
                                 }
-                                else lblError.Text = reader.Item2 + "<br />" + xmlResponse.Element("QBPOSXML").Element("QBPOSXMLMsgsRs").Element("ItemInventoryQueryRs").Attribute("statusMessage").Value + " And Nothing Found is UPC Database";
+                                else lblError.Text = reader.Item2 + "<br />" + xmlResponse.Element("QBPOSXML").Element("QBPOSXMLMsgsRs").Element("ItemInventoryQueryRs").Attribute("statusMessage").Value + " And Nothing Found in UPC Database";
 
                                  reader.Item1.Close();
 
