@@ -52,7 +52,11 @@ namespace MyWebApp
                 new XElement("Desc1", nametxt.Value),
                 new XElement("Price1", pricetxt.Value),
                 new XElement("Attribute", attributetxt.Value),
-                new XElement("Size", sizetxt.Value)
+                new XElement("Size", sizetxt.Value),
+                new XElement("VendorInfo2", new XElement("VendorListID", "1000000002")),
+                new XElement("VendorInfo3", new XElement("VendorListID", "6128962489246712065")),
+                new XElement("VendorInfo4", new XElement("VendorListID", "3738502657476559105")),
+                new XElement("VendorInfo5", new XElement("VendorListID", "3761338089255895297"))
 
                 )))));
             StringWriter writer = new StringWriter();
@@ -74,7 +78,7 @@ namespace MyWebApp
                 lblError.Text = "Changes Saved";
                 lblError.Style.Add("color", "Green");
             }
-            else lblError.Text = "Error";
+            else lblError.Text = status;
             
                 
 
