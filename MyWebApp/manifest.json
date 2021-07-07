@@ -1,9 +1,6 @@
 {
-    "short_name": "QBPOS",
-    "name": "Inventory Query",
-    "theme_color": "#2196f3",
-    "background_color": "#f5f5f5",
-    "display": "standalone",
+  "short_name": "QBPOS",
+  "name": "Inventory Query",
   "icons": [
     {
       "src": "source/icon.png",
@@ -11,6 +8,9 @@
       "type": "image/png"
     }
   ],
-    "start_url": "/default.aspx"
-  
+  "start_url": "/default.aspx",
+  "background_color": "#f5f5f5",
+  "theme_color": "#2196f3",
+  "display": "standalone"
+
 }

@@ -26,6 +26,11 @@
   <!-- Custom styles for this template -->
   <link href="~/lib/css/simple-sidebar.css" rel="stylesheet">
   <link href="~/lib/css/site.css" rel="stylesheet">
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js');
+        };
+    </script>
    <asp:ContentPlaceHolder ID="Head" runat="server">
                 </asp:ContentPlaceHolder>
 
