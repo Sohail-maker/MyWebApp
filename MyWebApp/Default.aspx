@@ -117,6 +117,7 @@
           <div runat="server" id="printDiv" Visible="false" class="row">
               <div style="width:70%" >
               <asp:Button ID="btnPrint" runat="server" Text="Print Tag" Cssclass="btn-Block btn-primary " style="width:100%;vertical-align:middle; font-size:20px; border-radius:4px;" OnClick="btnPrint_Click"/>
+              <asp:Button ID="btnLabelPrint" runat="server" Text="Print Label" Cssclass="btn-Block btn-primary " style="width:100%;vertical-align:middle; font-size:20px; border-radius:4px;" OnClick="btnLabelPrint_Click"/>
                 </div>
               <div style="width:25%" >
                   
