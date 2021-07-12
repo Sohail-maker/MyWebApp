@@ -105,13 +105,15 @@ namespace MyWebApp
                     catch (NullReferenceException)
                     {
                     string query = $"SELECT `itemNumber`, `Name`, `ALU`, `attribute`, `cost`, `lastReceived`, `onHandQty`, `orderCost`, `price`, `size`, `UPC`, `ALU2`, `UPC2`, `ALU3`, `UPC3`, `ALU4`, `UPC4`, `ALU5`, `UPC5` FROM `inventory` WHERE CONCAT( `itemNumber`, `Name`, `ALU`,  `UPC`, `ALU2`, `UPC2`, `ALU3`, `UPC3`, `ALU4`, `UPC4`, `ALU5`, `UPC5` ) LIKE '%{txtUPC.Text.Trim()}%' LIMIT 1; ";
-                    MySqlConnection conn = new MySqlConnection(database.connString);
-                    conn.Open();
-                    MySqlCommand command = new MySqlCommand(query, conn);
-                    MySqlDataReader read = command.ExecuteReader();
-                    
-                    (MySqlDataReader, string) reader = database.querySqlDatabase(read);
-                    
+                    using (MySqlConnection conn = new MySqlConnection(database.connString))
+                    {
+                        conn.Open();
+                        MySqlCommand command = new MySqlCommand(query, conn);
+                        using (MySqlDataReader read = command.ExecuteReader())
+                        {
+
+                            (MySqlDataReader, string) reader = database.querySqlDatabase(read);
+
 
                             try
                             {
@@ -124,9 +126,9 @@ namespace MyWebApp
                                     XDocument responsexml2 = XDocument.Parse(response2);
                                     XElement element2 = responsexml2.Element("QBPOSXML").Element("QBPOSXMLMsgsRs").Element("ItemInventoryQueryRs").Element("ItemInventoryRet");
 
-                                    lblError.Text = (  reader.Item2 + "<br />" + $"Last Updated {lastupdateDate()}" + "<br />" + $"{responsexml2.Element("QBPOSXML").Element("QBPOSXMLMsgsRs").Element("ItemInventoryQueryRs").Attribute("statusMessage").Value}");
+                                    lblError.Text = (reader.Item2 + "<br />" + $"Last Updated {lastupdateDate()}" + "<br />" + $"{responsexml2.Element("QBPOSXML").Element("QBPOSXMLMsgsRs").Element("ItemInventoryQueryRs").Attribute("statusMessage").Value}");
                                     lblError.Style.Add("color", "green");
-                                
+
                                     lblName.Text = database.TryGetElementValue(element2, "Desc1");
                                     lblPrice.Text = database.TryGetElementValue(element2, "Price1");
                                     lblOnHandQty.Text = database.TryGetElementValue(element2, "QuantityOnHand");
@@ -135,21 +137,26 @@ namespace MyWebApp
                                     lblitmNumber.Text = database.TryGetElementValue(element2, "ItemNumber");
                                     lblSize.Text = database.TryGetElementValue(element2, "Size");
                                     lblAttribute.Text = database.TryGetElementValue(element2, "Attribute");
-                                    
+
                                 }
                                 else lblError.Text = reader.Item2 + "<br />" + xmlResponse.Element("QBPOSXML").Element("QBPOSXMLMsgsRs").Element("ItemInventoryQueryRs").Attribute("statusMessage").Value + " And Nothing Found in UPC Database";
 
-                                 reader.Item1.Close();
+                                reader.Item1.Close();
 
                             }
                             catch (Exception EX)
                             {
                                 lblError.Text = EX.Message;
                             }
-                    read.Close();
-                    reader.Item1.Close();
-                    conn.Close();
 
+                            if (read.IsClosed) { }
+                            else read.Close();
+                            if (reader.Item1.IsClosed) { }
+                            else reader.Item1.Close();
+                            if (conn.State == System.Data.ConnectionState.Open) { }
+                            else conn.Close();
+                        }
+                    }
 
                     }
                     catch (Exception ex)
@@ -277,7 +284,7 @@ namespace MyWebApp
 
             string command;
            command   = (
-                     "SIZE 54 mm,90 mm"                                                                        + "\n"
+                     "SIZE 54 mm,80 mm"                                                                        + "\n"
                     + "GAP 0.00,0.00"                                                                          + "\n"
                     + "REFERENCE 0,0"                                                                          + "\n"
                     + "SPEED 4.0"                                                                              + "\n"
@@ -295,7 +302,7 @@ namespace MyWebApp
                     + $"TEXT 330,14,\"3\",90,1,1,\"{lblAttribute.Text}\""                                      + "\n"
                     + $"TEXT 300,14,\"3\",90,1,1,\"{lblSize.Text}\""                                           + "\n"
                     + $"TEXT 380,14,\"4\",90,1,1,\"{lblName.Text.Replace("\"","")}\""                          + "\n"
-                    + $"TEXT 289,328,\"5\",90,2,3,\"{(Convert.ToDecimal(lblPrice.Text)).ToString("N0")}\""     + "\n"        
+                    + $"TEXT 289,328,\"5\",90,1,3,\"{(Convert.ToDecimal(lblPrice.Text)).ToString("N0")}\""     + "\n"        
                     + $"TEXT 130,450,\"2\",90,1,1,\"AFN\""                                                     + "\n"
                     + $"TEXT 74,138,\"7\",90,1,1,\"{BarcodeConvert(lblitmNumber.Text)}\""                      + "\n"
                     + "BAR 80,600,300,10"                                                                      + "\n"

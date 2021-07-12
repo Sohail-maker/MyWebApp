@@ -28,7 +28,7 @@
   <link href="~/lib/css/site.css" rel="stylesheet">
     <script>
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js');
+            navigator.serviceWorker.register('./lib/sw.js');
         };
     </script>
    <asp:ContentPlaceHolder ID="Head" runat="server">
