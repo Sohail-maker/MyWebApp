@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Xml;
 using QBPOSXMLRPLib;
-using MySql.Data.MySqlClient;
-
+using System.Data.SQLite;
 
 namespace MyWebApp
 {
@@ -34,10 +33,10 @@ namespace MyWebApp
         {
             lblError.Text = null;
             string query = $"SELECT `itemNumber`, `Name`, `ALU`, `attribute`, `cost`, `lastReceived`, `onHandQty`, `orderCost`, `price`, `size`, `UPC`, `ALU2`, `UPC2`, `ALU3`, `UPC3`, `ALU4`, `UPC4`, `ALU5`, `UPC5` FROM `inventory` WHERE CONCAT( `itemNumber`, `Name`, `ALU`, `attribute`, `UPC`, `ALU2`, `UPC2`, `ALU3`, `UPC3`, `ALU4`, `UPC4`, `ALU5`, `UPC5` ) LIKE '%{searchInfo}%' LIMIT 1; ";
-            MySqlConnection conn = new MySqlConnection(database.connString);
+            SQLiteConnection conn = new SQLiteConnection(database.connString);
             conn.Open();
-            MySqlCommand command = new MySqlCommand(query, conn);
-            MySqlDataReader reader = command.ExecuteReader();
+            SQLiteCommand command = new SQLiteCommand(query, conn);
+            SQLiteDataReader reader = command.ExecuteReader();
 
             try
             {

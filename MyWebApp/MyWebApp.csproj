@@ -176,6 +176,7 @@
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
     <None Include="Properties\PublishProfiles\IISProfile.pubxml" />
+    <Content Include="source\data.db" />
     <None Include="source\queue.prn" />
     <Content Include="source\favicon.ico" />
     <Content Include="source\icon.png" />
@@ -232,7 +233,6 @@
     <Content Include="lib\js\bootstrap.js.map" />
     <Content Include="lib\js\bootstrap.min.js.map" />
     <None Include="packages.config" />
-    <Content Include="source\data.sqlite" />
     <Content Include="WebApp.Master" />
     <Content Include="start.ps1" />
     <Content Include="Start.bat" />

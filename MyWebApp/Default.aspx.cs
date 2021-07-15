@@ -3,7 +3,7 @@ using System;
 using System.IO;
 using System.Xml;
 using System.Xml.Linq;
-using MySql.Data.MySqlClient;
+using System.Data.SQLite;
 using System.Net.Sockets;
 using System.Net;
 using System.Text;
@@ -105,14 +105,14 @@ namespace MyWebApp
                     catch (NullReferenceException)
                     {
                     string query = $"SELECT `itemNumber`, `Name`, `ALU`, `attribute`, `cost`, `lastReceived`, `onHandQty`, `orderCost`, `price`, `size`, `UPC`, `ALU2`, `UPC2`, `ALU3`, `UPC3`, `ALU4`, `UPC4`, `ALU5`, `UPC5` FROM `inventory` WHERE CONCAT( `itemNumber`, `Name`, `ALU`,  `UPC`, `ALU2`, `UPC2`, `ALU3`, `UPC3`, `ALU4`, `UPC4`, `ALU5`, `UPC5` ) LIKE '%{txtUPC.Text.Trim()}%' LIMIT 1; ";
-                    using (MySqlConnection conn = new MySqlConnection(database.connString))
+                    using (SQLiteConnection conn = new SQLiteConnection(database.connString))
                     {
                         conn.Open();
-                        MySqlCommand command = new MySqlCommand(query, conn);
-                        using (MySqlDataReader read = command.ExecuteReader())
+                        SQLiteCommand command = new SQLiteCommand(query, conn);
+                        using (SQLiteDataReader read = command.ExecuteReader())
                         {
 
-                            (MySqlDataReader, string) reader = database.querySqlDatabase(read);
+                            (SQLiteDataReader, string) reader = database.querySqlDatabase(read);
 
 
                             try
@@ -210,13 +210,7 @@ namespace MyWebApp
                 $"A256,179,0,2,1,1,N,\" # {lblitmNumber.Text}\""                 + "\n" +
                 $"P1,{txtCopies.Value}"                                          + "\n" );
 
-            //using file copy
-            // string printAddress = @"\\192.168.168.1\zlp2844";
-            // File.WriteAllText(@"C:\website\source\queue.prn", command);
-            // File.Copy(@"C:\website\source\queue.prn", printAddress);
-
-
-            //using tcp socket
+            
             IPAddress ip = IPAddress.Parse("192.168.168.15");
             TcpClient tcpClient = new TcpClient();
             tcpClient.Connect(ip, 9100);
@@ -263,12 +257,14 @@ namespace MyWebApp
         public string lastupdateDate()
         {
             string query = "SELECT * FROM `lastupdate` WHERE 1";
-            MySqlConnection conn = new MySqlConnection(database.connString);
+            SQLiteConnection conn = new SQLiteConnection(database.connString);
             conn.Open();
-            MySqlCommand command = new MySqlCommand(query, conn);
-            MySqlDataReader reader = command.ExecuteReader();
+            SQLiteCommand command = new SQLiteCommand(query, conn);
+            SQLiteDataReader reader = command.ExecuteReader();
             reader.Read();
             return reader.GetDateTime(2).ToString();
+            reader.Close();
+            conn.Close();
 
         }
 
