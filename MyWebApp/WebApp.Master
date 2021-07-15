@@ -50,6 +50,7 @@
                 <a href="MysqlData.aspx" class="list-group-item list-group-item-action bg-light">Database</a>
                 <a href="Reports.aspx" class="list-group-item list-group-item-action bg-light">Accountant Reports</a>
                 <a href="AlterData.aspx" class="list-group-item list-group-item-action bg-light">Edit Items</a>
+                <a href="admin.aspx" class="list-group-item list-group-item-action bg-light">Edit Account</a>
                 <a  class="list-group-item list-group-item-action bg-light">Privacy</a>
             </div>
         </div>

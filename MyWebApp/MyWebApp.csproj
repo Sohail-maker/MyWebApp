@@ -173,6 +173,7 @@
     <Content Include="lib\js\bootstrap.esm.js.map" />
     <Content Include="lib\js\bootstrap.esm.min.js.map" />
     <Content Include="AlterData.aspx" />
+    <Content Include="admin.aspx" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
     <None Include="Properties\PublishProfiles\IISProfile.pubxml" />
@@ -224,6 +225,13 @@
     </Compile>
     <Compile Include="AlterData.aspx.designer.cs">
       <DependentUpon>AlterData.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin.aspx.cs">
+      <DependentUpon>admin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin.aspx.designer.cs">
+      <DependentUpon>admin.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

@@ -31,7 +31,7 @@
           <div class=" form-floating" style="margin-top:25px" >
              <asp:TextBox ID="txtUPC" runat="server" CssClass="form-control" style="width:100%;"></asp:TextBox>
               <label for="txtUPC" class="">Enter Item Info</label>
-             <asp:Button id="btnSearch" runat="server" Text="Search" OnClick="btnSearch_Click" Cssclass="btn-primary btn-block" style="margin:5px 0px 5px 0px; width:100%; vertical-align:middle; font-size:20px; border-radius:5px;"/>
+             <asp:Button id="btnSearch" runat="server" Text="Search" OnClick="btnSearch_Click" Cssclass="btn-primary btn-block" style=" margin:5px 0px 5px 0px;width:100%; vertical-align:middle; font-size:20px; border-radius:5px;" />
            </div>
          
 
