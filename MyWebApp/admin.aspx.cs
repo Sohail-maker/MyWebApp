@@ -48,7 +48,6 @@ namespace MyWebApp
                     connection.Open();
                     string hash = Guid.NewGuid().ToString();
                     string cmdstring =  $"UPDATE users set pswd = '{Site1.ComputeHash(newPass.Value,hash)}', salt = '{hash}' WHERE email = '{Session["id"].ToString()}'; ";
-                    System.Windows.Forms.MessageBox.Show(cmdstring);
                         try
                         {
                             SQLiteCommand cmd2 = new SQLiteCommand(cmdstring, connection);

@@ -105,7 +105,6 @@ namespace MyWebApp
                     catch (NullReferenceException)
                     { 
                     string query = $"SELECT itemNumber FROM inventory WHERE UPC = '{txtUPC.Text.Trim()}' OR ALU2 = '{txtUPC.Text.Trim()}' OR UPC2 = '{txtUPC.Text.Trim()}' OR ALU3 = '{txtUPC.Text.Trim()}' OR UPC3 = '{txtUPC.Text.Trim()}' OR ALU4 = '{txtUPC.Text.Trim()}' OR UPC4 = '{txtUPC.Text.Trim()}' OR ALU5 = '{txtUPC.Text.Trim()}' OR UPC5 = '{txtUPC.Text.Trim()}' OR ALU = '{txtUPC.Text.Trim()}' OR Name = '{txtUPC.Text.Trim()}' OR attribute = '{txtUPC.Text.Trim()}' OR size = '{txtUPC.Text.Trim()}';";
-                    System.Windows.Forms.MessageBox.Show(query);
                     using (SQLiteConnection conn = new SQLiteConnection(database.connString))
                     {
                         conn.Open();
