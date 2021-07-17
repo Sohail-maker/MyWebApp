@@ -103,8 +103,9 @@ namespace MyWebApp
 
                     }
                     catch (NullReferenceException)
-                    {
-                    string query = $"SELECT `itemNumber`, `Name`, `ALU`, `attribute`, `cost`, `lastReceived`, `onHandQty`, `orderCost`, `price`, `size`, `UPC`, `ALU2`, `UPC2`, `ALU3`, `UPC3`, `ALU4`, `UPC4`, `ALU5`, `UPC5` FROM `inventory` WHERE CONCAT( `itemNumber`, `Name`, `ALU`,  `UPC`, `ALU2`, `UPC2`, `ALU3`, `UPC3`, `ALU4`, `UPC4`, `ALU5`, `UPC5` ) LIKE '%{txtUPC.Text.Trim()}%' LIMIT 1; ";
+                    { 
+                    string query = $"SELECT itemNumber FROM inventory WHERE UPC = '{txtUPC.Text.Trim()}' OR ALU2 = '{txtUPC.Text.Trim()}' OR UPC2 = '{txtUPC.Text.Trim()}' OR ALU3 = '{txtUPC.Text.Trim()}' OR UPC3 = '{txtUPC.Text.Trim()}' OR ALU4 = '{txtUPC.Text.Trim()}' OR UPC4 = '{txtUPC.Text.Trim()}' OR ALU5 = '{txtUPC.Text.Trim()}' OR UPC5 = '{txtUPC.Text.Trim()}' OR ALU = '{txtUPC.Text.Trim()}' OR Name = '{txtUPC.Text.Trim()}' OR attribute = '{txtUPC.Text.Trim()}' OR size = '{txtUPC.Text.Trim()}';";
+                    System.Windows.Forms.MessageBox.Show(query);
                     using (SQLiteConnection conn = new SQLiteConnection(database.connString))
                     {
                         conn.Open();
@@ -122,7 +123,7 @@ namespace MyWebApp
                                 if (reader.Item1.HasRows)
                                 {
 
-                                    string response2 = rp.ProcessRequest(ticket, database.createxmlreq(reader.Item1.GetString(0)));
+                                    string response2 = rp.ProcessRequest(ticket, database.createxmlreq(reader.Item1.GetValue(0).ToString()));
                                     XDocument responsexml2 = XDocument.Parse(response2);
                                     XElement element2 = responsexml2.Element("QBPOSXML").Element("QBPOSXMLMsgsRs").Element("ItemInventoryQueryRs").Element("ItemInventoryRet");
 
@@ -146,7 +147,7 @@ namespace MyWebApp
                             }
                             catch (Exception EX)
                             {
-                                lblError.Text = EX.Message;
+                                lblError.Text = EX.GetType() + EX.Message;
                             }
 
                             if (read.IsClosed) { }

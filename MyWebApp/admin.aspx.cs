@@ -41,21 +41,26 @@ namespace MyWebApp
                  string pass = reader.GetString(0);
                  reader.Close();
                  conn.Close();
-                if (Site1.ComputeHash(pass, key) == Site1.ComputeHash(oldPass.Value, key))
+                if (pass == Site1.ComputeHash(oldPass.Value, key))
                   {
                 using (SQLiteConnection connection = new SQLiteConnection(database.connString))
                 {
                     connection.Open();
-                    using (SQLiteCommand cmd2 = connection.CreateCommand())
-                    {
-                        string hash = Guid.NewGuid().ToString();
-                        cmd2.CommandText = $"SELECT pswd , salt , email , name FROM users WHERE email = 'admin'"; // $"UPDATE users SET pswd = '{newPass.Value}', salt = '{hash}' WHERE email = '{Session["id"].ToString()}'; ";
-                         cmd2.Parameters.AddWithValue("@pass", Site1.ComputeHash(newPass.Value, hash));
-                         cmd2.Parameters.AddWithValue("@hash", hash);
-                         cmd2.Parameters.AddWithValue("@user", Session["id"].ToString());
-                        cmd2.ExecuteReader();
+                    string hash = Guid.NewGuid().ToString();
+                    string cmdstring =  $"UPDATE users set pswd = '{Site1.ComputeHash(newPass.Value,hash)}', salt = '{hash}' WHERE email = '{Session["id"].ToString()}'; ";
+                    System.Windows.Forms.MessageBox.Show(cmdstring);
+                        try
+                        {
+                            SQLiteCommand cmd2 = new SQLiteCommand(cmdstring, connection);
+                            cmd2.VerifyOnly();
+                            cmd2.ExecuteNonQuery();
+
+                        }
+                        catch(Exception ex)
+                        {
+                            Site1.alertMessageBox(Page,ex.Message + ex.GetType());
+                        }
                         Site1.alertMessageBox(Page, $"Password Changed ");
-                    }
                 }
                 oldPass.Value = "";
                 newPass.Value = "";
@@ -69,7 +74,31 @@ namespace MyWebApp
 
         protected void btnAddAccount_Click1(object sender, EventArgs e)
         {
-
+            string name = accountName.Value;
+            string email = userName.Value;
+            string pass = userPassword.Value;
+            string salt = Guid.NewGuid().ToString();
+            try
+            {
+                using(SQLiteConnection connection = new SQLiteConnection(database.connString))
+                {
+                    connection.Open();
+                    using(SQLiteCommand cmd = new SQLiteCommand(connection))
+                    {
+                        cmd.CommandText = $"INSERT INTO users (email, name, pswd, salt) VALUES ('{email}','{name}','{pass}','{salt}')";
+                        cmd.ExecuteNonQuery();
+                    }
+                    connection.Close();
+                }
+                Site1.alertMessageBox(Page,"Account Added");
+                
+            }
+            
+            catch(Exception ex)
+            {
+                Site1.alertMessageBox(Page, ex.Message);
+            }
+            
         }
     }
 }

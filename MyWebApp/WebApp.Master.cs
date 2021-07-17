@@ -32,29 +32,32 @@ namespace MyWebApp
 
         protected void btnLogin_Click(object sender, EventArgs e)
         {
-            SQLiteConnection conn = new SQLiteConnection(database.connString);
-            conn.Open();
-            string checkcommand = ($"SELECT pswd , salt , email , name FROM users WHERE email = '{inputUser.Value}'");
-            SQLiteCommand command = new SQLiteCommand(checkcommand, conn);
-            SQLiteDataReader SqlDataReader = command.ExecuteReader();
-            SqlDataReader.Read();
-            if (SqlDataReader.HasRows)
+            using (SQLiteConnection conn = new SQLiteConnection(database.connString))
             {
-                if (Site1.ComputeHash(SqlDataReader.GetString(0), SqlDataReader.GetString(1)) == Site1.ComputeHash(inputPass.Value, SqlDataReader.GetString(1)))
+                conn.Open();
+                string checkcommand = ($"SELECT pswd , salt , email , name FROM users WHERE email = '{inputUser.Value}'");
+                using (SQLiteCommand command = new SQLiteCommand(checkcommand, conn))
                 {
-                    Session["user"] = SqlDataReader.GetValue(3);
-                    Session["id"] = SqlDataReader.GetString(2);
-                    Response.Redirect("Default.aspx");
+                    SQLiteDataReader SqlDataReader = command.ExecuteReader();
+                    SqlDataReader.Read();
+                    if (SqlDataReader.HasRows)
+                    {
+                        if (SqlDataReader.GetString(0) == Site1.ComputeHash(inputPass.Value, SqlDataReader.GetString(1)))
+                        {
+                            Session["user"] = SqlDataReader.GetValue(3);
+                            Session["id"] = SqlDataReader.GetString(2);
+                        }
+                        else alertMessageBox(this.Page, "Invalid Password");
+
+                    }
+                    else alertMessageBox(this.Page, "User Not Found");
+
+
+
+                    SqlDataReader.Close();
+                    conn.Close();
                 }
-                else alertMessageBox(this.Page, "Invalid Password");
-
             }
-            else alertMessageBox(this.Page, "User Not Found");
-
-
-
-            SqlDataReader.Close();
-            conn.Close();
         }
         public static string ComputeHash(string passwordPlainText, string saltString)
         {
